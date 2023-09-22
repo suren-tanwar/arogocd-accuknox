@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress-app 
+  # / name: prod-website
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-username/your-git-repo.git
+    targetRevision: HEAD
+    path: wordpress/wordpress-deployment
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod-website
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
